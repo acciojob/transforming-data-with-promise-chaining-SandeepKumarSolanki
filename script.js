@@ -27,7 +27,7 @@ btn.addEventListener("click", () => {
     })
     .then((val) => {
         val -= 3; // Subtract 3
-        p = document.createElement("p"); // Create a new element to display the next result
+        // p = document.createElement("p"); // Create a new element to display the next result
         return new Promise((resolve) => {
             setTimeout(() => {
                 p.innerText = `Result: ${val}`;
@@ -38,7 +38,7 @@ btn.addEventListener("click", () => {
     })
     .then((val) => {
         val /= 2; // Divide by 2
-        p = document.createElement("p"); // Create a new element to display the next result
+        // p = document.createElement("p"); // Create a new element to display the next result
         return new Promise((resolve) => {
             setTimeout(() => {
                 p.innerText = `Result: ${val}`;
@@ -49,7 +49,7 @@ btn.addEventListener("click", () => {
     })
     .then((val) => {
         val += 10; // Add 10
-        p = document.createElement("p"); // Create a new element to display the final result
+        // p = document.createElement("p"); // Create a new element to display the final result
         return new Promise((resolve) => {
             setTimeout(() => {
                 p.innerText = `Final Result: ${val}`;
