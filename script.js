@@ -3,41 +3,62 @@ let btn = document.getElementById('btn');
 let output = document.getElementById('output');
 
 btn.addEventListener("click", () => {
-    let val = +userInput.value;  // Get the input value as a number
+    let val = +userInput.value; // Get the input value and convert to a number
+    let p = document.createElement("p"); // Create a paragraph element for displaying results
 
-    // Create a function to simulate a delay with a Promise
-    function delay(ms, value) {
-        return new Promise(resolve => {
-            setTimeout(() => resolve(value), ms);
+    // First promise (Initial value)
+    new Promise((resolve) => {
+        setTimeout(() => {
+            p.innerText = `Result: ${val}`;
+            output.append(p); // Display the initial value
+            resolve(val); // Resolve the promise with the initial value
+        }, 1000 * 2); // 2 seconds delay
+    })
+    .then((val) => {
+        val *= 2; // Multiply by 2
+        p = document.createElement("p"); // Create a new element to display the next result
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                p.innerText = `Result: ${val}`;
+                output.append(p); // Display the result after multiplying
+                resolve(val); // Resolve the promise with the new value
+            }, 1000 * 2); // 2 seconds delay
         });
-    }
-
-    // Start the promise chain with the initial value
-    delay(2000, val)  // 2 seconds delay
-        .then((val) => {
-            output.innerHTML = `Result: ${val}`; // Display the initial value
-            return val * 2;  // Multiply by 2
-        })
-        .then((val) => delay(2000, val))  // Delay for 2 seconds
-        .then((val) => {
-            output.innerHTML = `Result: ${val}`; // Display after multiplication
-            return val - 3;  // Subtract 3
-        })
-        .then((val) => delay(1000, val))  // Delay for 1 second
-        .then((val) => {
-            output.innerHTML = `Result: ${val}`; // Display after subtraction
-            return val / 2;  // Divide by 2
-        })
-        .then((val) => delay(1000, val))  // Delay for 1 second
-        .then((val) => {
-            output.innerHTML = `Result: ${val}`; // Display after division
-            return val + 10;  // Add 10
-        })
-        .then((val) => delay(1000, val))  // Delay for 1 second
-        .then((val) => {
-            output.innerHTML = `Final Result: ${val}`; // Display final result
-        })
-        .catch(error => {
-            console.error('Error during transformation:', error);
+    })
+    .then((val) => {
+        val -= 3; // Subtract 3
+        p = document.createElement("p"); // Create a new element to display the next result
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                p.innerText = `Result: ${val}`;
+                output.append(p); // Display the result after subtracting
+                resolve(val); // Resolve the promise with the new value
+            }, 1000 * 1); // 1 second delay
         });
+    })
+    .then((val) => {
+        val /= 2; // Divide by 2
+        p = document.createElement("p"); // Create a new element to display the next result
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                p.innerText = `Result: ${val}`;
+                output.append(p); // Display the result after dividing
+                resolve(val); // Resolve the promise with the new value
+            }, 1000 * 1); // 1 second delay
+        });
+    })
+    .then((val) => {
+        val += 10; // Add 10
+        p = document.createElement("p"); // Create a new element to display the final result
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                p.innerText = `Final Result: ${val}`;
+                output.append(p); // Display the final result
+                resolve(val); // Resolve the promise with the final value
+            }, 1000 * 1); // 1 second delay
+        });
+    })
+    .catch((error) => {
+        console.error("Error:", error); // Catch and log any errors in the promise chain
+    });
 });
